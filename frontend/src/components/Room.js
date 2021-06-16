@@ -1,10 +1,13 @@
 import React, { Component} from 'react';
+import clsx from 'clsx';
 import {Container, Grid, Button, Typography} from '@material-ui/core';
 import CreateRoomPage from "./CreateRoomPage";
 import MusicPlayer from "./MusicPlayer";
 import SearchBar from "./SearchBar";
 import SavedSongs from './SavedSongs';
-
+import PersistentDrawerLeft, {useStyles} from "./Drawer";
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 export default class Room extends Component{
     constructor(props){
@@ -28,6 +31,7 @@ export default class Room extends Component{
         this.getCurrentSong = this.getCurrentSong.bind(this);
         this.getSavedSongs = this.getSavedSongs.bind(this);
         this.getRoomDetails();
+        
     }
 
     componentDidMount() {
@@ -49,7 +53,7 @@ export default class Room extends Component{
         }) 
         .then((data) => {
           this.setState({ song: data });
-          // console.log(data);
+          console.log(data);
         });
     }
 
@@ -64,7 +68,7 @@ export default class Room extends Component{
         }) 
         .then((data) => {
           this.setState({ savedSongs: data });
-          console.log(data);
+          // console.log(data);
         });
     }
 
@@ -148,11 +152,9 @@ export default class Room extends Component{
 
     renderSettingsButton(){
       return(
-        <Grid item xs={12} align="left">
-          <Button variant="contained" onClick={()=> this.updateShowSettings(true)}>
-          Settings
-          </Button>
-        </Grid>
+        <ListItem button onClick={()=> this.updateShowSettings(true)}>
+            <ListItemText primary="Settings" />
+        </ListItem>
       );
     }
 
@@ -162,7 +164,12 @@ export default class Room extends Component{
       }
       return (
         <div >
-          
+          <PersistentDrawerLeft {...this}/>
+          <main
+            // className={clsx(useStyles.content, {
+            //   [useStyles.contentShift]: open,
+            // })}
+          >
           <Grid container spacing={1}>
             <Grid item xs={12} align="center">
               <Typography variant="h4" component="h4">
@@ -171,26 +178,18 @@ export default class Room extends Component{
               {/* <SearchBar/> */}
             </Grid>
             
-            <SavedSongs {...this.state.SavedSongs} />
+            {/* <SavedSongs {...this.state.SavedSongs} /> */}
             
 
             
 
-            {this.state.isHost ? this.renderSettingsButton() : null}
-            <Grid item xs={12} align="left">
-              <Button
-                variant="contained"
-                onClick={this.leaveRoom}
-              >
-                Leave Room
-              </Button>
-            </Grid>           
+            {/* {this.state.isHost ? this.renderSettingsButton() : null}        */}
 
           </Grid>
           <div className = "music">
             <MusicPlayer {...this.state.song}/>
           </div>
-          
+          </main>
         </div>
       );
     }

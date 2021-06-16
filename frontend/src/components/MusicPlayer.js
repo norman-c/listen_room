@@ -54,28 +54,29 @@ export default class MusicPlayer extends Component {
   
       return (
         <div>
-        <Card >
+        <Card style={{backgroundColor:'#1a1a1a'}}>
           <Grid container alignItems="center">
             <Grid item align="center" xs={4}>
               <img src={this.props.image_url} height="120px" width="120px" />
             </Grid>
             <Grid item align="center" xs={8}>
-              <Typography component="h5" variant="h5">
+              <Typography component="h5" variant="h5" style={{color:'white'}}>
                 {this.props.title}
               </Typography>
-              <Typography color="textSecondary" variant="subtitle1">
+              <Typography color="textSecondary" variant="subtitle1" style={{color:'white'}}> 
                 {this.props.artist}
               </Typography>
+              <LinearProgress style={{color:'white', marginRight:'20px', marginLeft:'20px'}} variant="determinate" value={songProgress} />
               <div>
                 <IconButton>
-                  <SkipPrevIcon 
+                  <SkipPrevIcon style={{color:'white'}}
                     onClick={() => {
                       this.prevSong();
                     }}
                   />
                 </IconButton>
               
-                <IconButton 
+                <IconButton style={{color:'white'}}
                   onClick={() => {
                     this.props.is_playing ? this.pauseSong() : this.playSong();
                   }}
@@ -84,7 +85,7 @@ export default class MusicPlayer extends Component {
                   {this.props.is_playing ? <PauseIcon /> : <PlayArrowIcon />}
                 </IconButton>
                 <IconButton>
-                  <SkipNextIcon 
+                  <SkipNextIcon style={{color:'white'}}
                     onClick={() => {
                       this.nextSong();
                     }}
@@ -94,7 +95,6 @@ export default class MusicPlayer extends Component {
               </div>
             </Grid>
           </Grid>
-          <LinearProgress variant="determinate" value={songProgress} />
         </Card>
         </div>
       );

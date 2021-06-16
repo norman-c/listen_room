@@ -64,7 +64,7 @@ def execute_spotify_api_request(session_id, endpoint, post_=False, put_=False):
     headers = {'Content-Type': 'application/json',
                'Authorization': "Bearer " + tokens.access_token}
 
-    print(BASE_URL + endpoint)
+    # print(BASE_URL + endpoint)
     if post_:
         post(BASE_URL + endpoint, headers=headers)
     if put_:

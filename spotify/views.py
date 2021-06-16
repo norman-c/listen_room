@@ -67,7 +67,9 @@ class CurrentSong(APIView):
         endpoint = "/me/player/currently-playing"
         response = execute_spotify_api_request(host, endpoint)
 
+        print(response)
         if 'error' in response or 'item' not in response:
+            # refresh_spotify_token(host)
             return Response({}, status=status.HTTP_204_NO_CONTENT)
 
         item = response.get('item')
@@ -95,7 +97,7 @@ class CurrentSong(APIView):
             'votes': 0,
             'id': song_id
         }
-
+        
         return Response(song, status=status.HTTP_200_OK)
 
 class SavedSongs(APIView):

@@ -14,7 +14,6 @@ import Alert from "@material-ui/lab/Alert";
 
 export default class CreateRoomPage extends Component {
   static defaultProps = {
-    votesToSkip: 2,
     guestCanPause: true,
     update: false,
     roomCode: null,
@@ -25,21 +24,13 @@ export default class CreateRoomPage extends Component {
     super(props);
     this.state = {
       guestCanPause: this.props.guestCanPause,
-      votesToSkip: this.props.votesToSkip,
       errorMsg: "",
       successMsg: "",
     };
 
     this.handleRoomButtonPressed = this.handleRoomButtonPressed.bind(this);
-    this.handleVotesChange = this.handleVotesChange.bind(this);
     this.handleGuestCanPauseChange = this.handleGuestCanPauseChange.bind(this);
     this.handleUpdateButtonPressed = this.handleUpdateButtonPressed.bind(this);
-  }
-
-  handleVotesChange(e) {
-    this.setState({
-      votesToSkip: e.target.value,
-    });
   }
 
   handleGuestCanPauseChange(e) {
@@ -53,7 +44,6 @@ export default class CreateRoomPage extends Component {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        votes_to_skip: this.state.votesToSkip,
         guest_can_pause: this.state.guestCanPause,
       }),
     };
@@ -67,7 +57,6 @@ export default class CreateRoomPage extends Component {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        votes_to_skip: this.state.votesToSkip,
         guest_can_pause: this.state.guestCanPause,
         code: this.props.roomCode,
       }),
@@ -181,23 +170,7 @@ export default class CreateRoomPage extends Component {
             </RadioGroup>
           </FormControl>
         </Grid>
-        <Grid item xs={12} align="center">
-          <FormControl>
-            <TextField
-              required={true}
-              type="number"
-              onChange={this.handleVotesChange}
-              defaultValue={this.state.votesToSkip}
-              inputProps={{
-                min: 1,
-                style: { textAlign: "center" },
-              }}
-            />
-            <FormHelperText>
-              <div align="center">Votes Required To Skip Song</div>
-            </FormHelperText>
-          </FormControl>
-        </Grid>
+
         {this.props.update
           ? this.renderUpdateButtons()
           : this.renderCreateButtons()}

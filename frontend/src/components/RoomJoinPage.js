@@ -35,12 +35,12 @@ export default class RoomJoinPage extends Component{
                     />
                 </Grid>
                 <Grid item xs={12} align="center">
-                    <Button variant="contained" color="secondary" onClick={this.roomJoin}>
+                    <Button variant="contained" onClick={this.roomJoin}>
                         Enter Room
                     </Button>
                 </Grid>
                 <Grid item xs={12} align="center">
-                    <Button variant="contained" color="primary" to="/" component={Link}>
+                    <Button variant="contained"  to="/" component={Link}>
                         Back
                     </Button>
                 </Grid>
